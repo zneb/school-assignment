@@ -13,3 +13,7 @@ and run the commands:
 
     npm install
     npm start
+
+## Code explanations
+
+Documentation is in function files
