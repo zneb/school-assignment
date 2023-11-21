@@ -10,6 +10,7 @@ import {
 } from "./lib";
 import { populate } from "./lib/populate";
 
+/** The main control flow of the program */
 async function main() {
   // This line will reset or create the data for the students table
   // Comment it out to persist data after running the program again
@@ -69,7 +70,7 @@ Pick an action to do:
           return;
         }
 
-        console.log(">> Failed to add student", e);
+        console.log(">> Failed to add student");
       });
 
       continueMessage();
@@ -83,7 +84,11 @@ Pick an action to do:
       const email = getInput("Enter a new email: ");
 
       await updateStudentEmail(studentId, email).catch((e) => {
-        console.log(">> Failed to update student email", e);
+        if (e.code === "42703") {
+          console.log(">> Failed to update student email. Invalid Id");
+          return;
+        }
+        console.log(">> Failed to update student email");
       });
 
       continueMessage();
@@ -95,6 +100,11 @@ Pick an action to do:
 
       const studentId = getNumber("Enter student id: ");
       await deleteStudent(studentId).catch((e) => {
+        if (e.code === "42703") {
+          console.log(">> Failed to delete student record. Invalid Id");
+          return;
+        }
+
         console.log(">> Failed to delete student record", e);
       });
 
