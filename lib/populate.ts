@@ -18,9 +18,17 @@ const createRows = `INSERT INTO students (first_name, last_name, email, enrollme
 /**
  * Resets and populates the database with seed data
  */
-export async function populate() {
-  await client.query("drop table if exists students");
-  await client.query(createTable);
-  await client.query(createRows);
-  console.log("Database has been reset to initial state");
+async function populate() {
+  try {
+    await client.query("drop table if exists students");
+    await client.query(createTable);
+    await client.query(createRows);
+    console.log(">> Database has been reset to initial state");
+  } catch {
+    console.log(">> Failed to populate database");
+  }
+
+  client.end();
 }
+
+populate();

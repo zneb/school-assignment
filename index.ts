@@ -8,14 +8,9 @@ import {
   getNumber,
   continueMessage,
 } from "./lib";
-import { populate } from "./lib/populate";
 
 /** The main control flow of the program */
 async function main() {
-  // This line will reset or create the data for the students table
-  // Comment it out to persist data after running the program again
-  await populate();
-
   while (true) {
     console.log(
       `
