@@ -1,5 +1,9 @@
 # Students database
 
+## Demo
+
+[Demo Video](https://youtu.be/2OSzvbkiflE)
+
 ## Setup
 
 Make sure `Node.js` and `npm` are installed (Node 18 LTS or above)

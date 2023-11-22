@@ -54,19 +54,23 @@ Pick an action to do:
       const email = getInput("Enter an email: ");
       const date = getInput("Enter a date (YYYY-MM-DD): ");
 
-      await addStudent(firstName, lastName, email, date).catch((e) => {
-        if (e.code === "23505") {
-          console.log(">> Failed to add student. Invalid Email");
-          return;
-        }
+      await addStudent(firstName, lastName, email, date)
+        .then(() => {
+          console.log(">> Added student successfully");
+        })
+        .catch((e) => {
+          if (e.code === "23505") {
+            console.log(">> Failed to add student. Invalid Email");
+            return;
+          }
 
-        if (e.code === "22007" || e.code === "22008") {
-          console.log(">> Failed to add student. Invalid Date");
-          return;
-        }
+          if (e.code === "22007" || e.code === "22008") {
+            console.log(">> Failed to add student. Invalid Date");
+            return;
+          }
 
-        console.log(">> Failed to add student");
-      });
+          console.log(">> Failed to add student");
+        });
 
       continueMessage();
       continue;
@@ -78,13 +82,11 @@ Pick an action to do:
       const studentId = getNumber("Enter student id: ");
       const email = getInput("Enter a new email: ");
 
-      await updateStudentEmail(studentId, email).catch((e) => {
-        if (e.code === "42703") {
-          console.log(">> Failed to update student email. Invalid Id");
-          return;
-        }
-        console.log(">> Failed to update student email");
-      });
+      await updateStudentEmail(studentId, email)
+        .then(() => console.log(">> Updated student email"))
+        .catch((e) => {
+          console.log(">> Failed to update student email");
+        });
 
       continueMessage();
       continue;
@@ -94,14 +96,16 @@ Pick an action to do:
       console.log(">> Deleting student record");
 
       const studentId = getNumber("Enter student id: ");
-      await deleteStudent(studentId).catch((e) => {
-        if (e.code === "42703") {
-          console.log(">> Failed to delete student record. Invalid Id");
-          return;
-        }
+      await deleteStudent(studentId)
+        .then(() => console.log(">> Deleted student record"))
+        .catch((e) => {
+          if (e.code === "42703") {
+            console.log(">> Failed to delete student record. Invalid Id");
+            return;
+          }
 
-        console.log(">> Failed to delete student record", e);
-      });
+          console.log(">> Failed to delete student record", e);
+        });
 
       continueMessage();
       continue;

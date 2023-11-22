@@ -10,7 +10,6 @@ export async function updateStudentEmail(studentId: number, newEmail: string) {
   return client.query(`
       update students
       set email = '${newEmail}'
-      where student_id = ${studentId}
-      returning student_id;
-    `);
+      where student_id = ${studentId};
+`);
 }
